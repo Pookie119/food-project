@@ -58,8 +58,10 @@ def existing_lst():
 
 #Promt user to enter grocery list
 def user_lst():
+#Set seen_done(list flag) to false. When seen_done is true, input is while loop exited
     seen_done = False
     print("Enter food items on seperate lines. To end input type 'done': ")
+#While loop for user list entry
     while (seen_done == False):
         item = input()
         if (item in ['Done', 'done']):
@@ -68,20 +70,35 @@ def user_lst():
             food_lst.append(item)
     return food_lst
 
+def save_lst():
+#If no existing list, then save list
+#If existing list, prompt user to save as new list or replace existing list?
 
-# save = input('Would you like to save this list? Y/N: ')
-# if save == 'Y':
-#   fp.writelines(food_lst)
+#Prompt user to save list
+    save = input('Would you like to save this list? Y/N: ')
+#If user selects to save new list
+    if save == 'Y':
+        fp = open(r'C:\Users\Pookie\Downloads\python\grocery_list.txt', 'w')
+#Save each item in list on a new line in .txt
+        for item in food_lst:
+            fp.write("%s\n" % item)
+        print(f"List Saved")
+#If user selects not to save their list
+    elif save == 'N':
+        print("List erased")
 
 
-def item_count(item_cnt):
-    pass
-
+def item_count():
+    item_cnt = len(food_lst)
+    return item_cnt
 
 
 def main():
     existing_lst()
     groceries = food_lst
-    print('Your current grocery list is:', groceries)
+    item_count()
+    print('Your current grocery list contains the following', item_count(),'items: ', groceries)
+    save_lst()
+    print('Thanks for stopping by! Have a great day :)')
 
 main()
